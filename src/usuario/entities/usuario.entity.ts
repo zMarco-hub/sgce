@@ -17,6 +17,6 @@ export class Usuario {
 
   @Column({ default: true }) activo: boolean;
 
-  @OneToOne(() => Estudiante, e => e.usuarioId) estudiante?: Estudiante;
+  @OneToOne(() => Estudiante, e => e.usuario) estudiante?: Estudiante;
   @OneToOne(() => Docente, d => d.usuario) docente?: Docente;
 }

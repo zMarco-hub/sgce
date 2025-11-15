@@ -1,15 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Nota } from 'src/nota/entities/nota.entity';
 
-@Entity({ name: 'estudiante' })
-@Unique(['usuarioId'])
+@Entity('estudiante')
 @Unique(['codigo'])
 export class Estudiante {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'usuario_id' })
-  usuarioId: number;
-
-  @Column({ length: 30 })
+  @Column({ unique: true })
   codigo: string;
+
+  @OneToOne(() => Usuario, u => u.estudiante, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'usuario_id' })
+  usuario: Usuario;
+
+   @OneToMany(() => Nota, n => n.estudiante)
+  notas: Nota[];
 }

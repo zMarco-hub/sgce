@@ -1,13 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
 
-@Entity()
+@Entity('docente')
 export class Docente {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 120, nullable: true })
+  titulo: string | null;
 
   @OneToOne(() => Usuario, u => u.docente, { eager: true, onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'usuario_id' })
   usuario: Usuario;
-
-  @Column({ nullable: true }) titulo: string;
 }

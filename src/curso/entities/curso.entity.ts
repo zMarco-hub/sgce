@@ -1,20 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
-@Entity({ name: 'curso' })
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Docente } from '../../docente/entities/docente.entity';
+import { Evaluacion } from '../../evaluacion/entities/evaluacion.entity';
+@Entity('curso')
+@Unique(['nombre', 'gestion', 'docente'])
 export class Curso {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 120 })
+  @Column({ type: 'varchar', length: 120 })
   nombre: string;
 
-  // Relación lógica: docente_id (evitamos ManyToOne por ahora)
-  @Column({ name: 'docente_id' })
-  docenteId: number;
-
-  @Column({ length: 20 })
+  @Column({ type: 'varchar', length: 20 })
   gestion: string; // p.ej. "2025-1"
 
-  @Column({ default: true })
+  @ManyToOne(() => Docente, d => d.id, { eager: true, nullable: false, onDelete: 'RESTRICT' })
+  docente: Docente;
+
+  @Column({ type: 'boolean', default: true })
   activo: boolean;
+
+  @OneToMany(() => Evaluacion, e => e.curso)
+  evaluaciones: Evaluacion[];
 }
