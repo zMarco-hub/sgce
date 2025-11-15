@@ -1,20 +1,28 @@
+// src/evaluacion/dto/create-evaluacion.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsInt, IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsNumberString, IsPositive, IsString, MaxLength } from 'class-validator';
+import { EvaluacionTipo } from '../entities/evaluacion.entity';
 
 export class CreateEvaluacionDto {
-  @ApiProperty({ example: 1 })
-  @IsInt() cursoId: number;
+  @ApiProperty({ example: 3 })
+  @IsInt() @IsPositive()
+  cursoId: number;
 
   @ApiProperty({ example: 'Parcial 1' })
-  @IsString() @Length(3, 120) titulo: string;
+  @IsString() @IsNotEmpty() @MaxLength(120)
+  titulo: string;
 
-  @ApiProperty({ example: 'EXAMEN' })
-  @IsString() @Length(3, 40) tipo: string;
+  @ApiProperty({ enum: EvaluacionTipo, example: EvaluacionTipo.EXAMEN })
+  @IsEnum(EvaluacionTipo)
+  tipo: EvaluacionTipo;
 
-  @ApiProperty({ example: '2025-05-10' })
-  @IsDateString() fecha: string;
+  @ApiProperty({ example: '2025-03-10' })
+  @IsDateString()
+  fecha: string;
 
-  @ApiProperty({ example: 30 })
-  @IsNumber({ maxDecimalPlaces: 2 }) @Min(0.01) @Max(100)
-  ponderacion: number;
+  @ApiProperty({ example: '20.00', description: '0 < p <= 100' })
+  @IsNumberString()
+  ponderacion: string;
 }
+
+

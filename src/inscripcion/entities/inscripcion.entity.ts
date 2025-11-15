@@ -1,16 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Estudiante } from '../../estudiante/entities/estudiante.entity';
+import { Curso } from '../../curso/entities/curso.entity';
 
-@Entity({ name: 'inscripcion' })
+@Entity('inscripcion')
+@Unique(['estudiante', 'curso'])
 export class Inscripcion {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'estudiante_id' })
-  estudianteId: number;
+  @ManyToOne(() => Estudiante, e => e.id, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  estudiante: Estudiante;
 
-  @Column({ name: 'curso_id' })
-  cursoId: number;
+  @ManyToOne(() => Curso, c => c.id, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  curso: Curso;
 
-  @Column({ type: 'timestamp', default: () => 'NOW()' })
+  @Column({ type: 'timestamp', default: () => 'now()' })
   fecha: Date;
 }

@@ -18,6 +18,10 @@ async function bootstrap() {
     .setDescription('API académica con Auth/JWT y roles')
     .setVersion('1.0')
     .addBearerAuth()
+    .setExternalDoc( // Agrega esta parte para el enlace del repositorio
+      'Repositorio en GitHub', // Título que se verá en Swagger
+      'https://github.com/tu-usuario/tu-repositorio' // Enlace a tu repositorio
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

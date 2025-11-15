@@ -1,9 +1,17 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Rol } from '../rol/entities/rol.entity';
+import { Repository, Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { CreateRolDto } from './dto/create-rol.dto';
 import { UpdateRolDto } from './dto/update-rol.dto';
+
+@Entity()
+export class Rol {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 255 })
+  name: string;
+}
 
 @Injectable()
 export class RolService {
@@ -12,7 +20,7 @@ export class RolService {
   ) {}
 
   create(dto: CreateRolDto) {
-    const rol = this.rolRepo.create(dto as Rol);
+    const rol = this.rolRepo.create(dto as unknown as Rol);
     return this.rolRepo.save(rol);
   }
 

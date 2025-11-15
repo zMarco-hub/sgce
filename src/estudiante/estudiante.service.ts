@@ -1,69 +1,70 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Estudiante } from './entities/estudiante.entity';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
+import { Usuario } from '../usuario/entities/usuario.entity';
 
 @Injectable()
 export class EstudianteService {
   constructor(
-    @InjectRepository(Estudiante)
-    private readonly repo: Repository<Estudiante>,
+    @InjectRepository(Estudiante) private readonly estRepo: Repository<Estudiante>,
+    @InjectRepository(Usuario) private readonly userRepo: Repository<Usuario>,
   ) {}
 
   async create(dto: CreateEstudianteDto) {
-    try {
-      const e = this.repo.create(dto);
-      return await this.repo.save(e);
-    } catch (err: any) {
-      if (err.code === '23505') {
-        // UNIQUE usuario_id o codigo
-        throw new BadRequestException('usuarioId o código ya están registrados');
-      }
-      if (err.code === '23503') {
-        // FK a usuario no existe
-        throw new BadRequestException('usuario_id no existe');
-      }
-      throw err;
-    }
+    const usuario = await this.userRepo.findOne({ where: { id: dto.usuarioId } });
+    if (!usuario) throw new NotFoundException('El usuario especificado no existe');
+
+    // asegurar que el usuario no esté ya asociado como estudiante
+    const yaEst = await this.estRepo.findOne({ where: { usuario: { id: usuario.id } } });
+    if (yaEst) throw new ConflictException('Ese usuario ya está asociado a un estudiante');
+
+    // asegurar código único
+    const codRepetido = await this.estRepo.findOne({ where: { codigo: dto.codigo } });
+    if (codRepetido) throw new ConflictException('El código ya existe');
+
+    const est = this.estRepo.create({ codigo: dto.codigo, usuario });
+    return this.estRepo.save(est);
   }
 
-  findAll() {
-    return this.repo.find({ order: { id: 'DESC' } });
+  async findAll() {
+    return this.estRepo.find(); // eager trae usuario
   }
 
   async findOne(id: number) {
-    const e = await this.repo.findOne({ where: { id } });
-    if (!e) throw new NotFoundException('Estudiante no encontrado');
-    return e;
-  }
-
-  async findByCodigo(codigo: string) {
-    const e = await this.repo.findOne({ where: { codigo } });
-    if (!e) throw new NotFoundException('Estudiante no encontrado');
-    return e;
+    const est = await this.estRepo.findOne({ where: { id } });
+    if (!est) throw new NotFoundException('Estudiante no encontrado');
+    return est;
   }
 
   async update(id: number, dto: UpdateEstudianteDto) {
-    const e = await this.findOne(id);
-    Object.assign(e, dto);
-    try {
-      return await this.repo.save(e);
-    } catch (err: any) {
-      if (err.code === '23505') {
-        throw new BadRequestException('usuarioId o código ya están registrados');
-      }
-      if (err.code === '23503') {
-        throw new BadRequestException('usuario_id no existe');
-      }
-      throw err;
+    const est = await this.findOne(id);
+
+    if (dto.codigo && dto.codigo !== est.codigo) {
+      const existe = await this.estRepo.findOne({ where: { codigo: dto.codigo } });
+      if (existe) throw new ConflictException('El código ya está en uso');
+      est.codigo = dto.codigo;
     }
+
+    // No permitimos cambiar de usuario aquí
+    if ((dto as any).usuarioId !== undefined) {
+      throw new BadRequestException('No está permitido cambiar el usuario asociado');
+    }
+
+    return this.estRepo.save(est);
   }
 
   async remove(id: number) {
-    const e = await this.findOne(id);
-    await this.repo.remove(e);
+    const est = await this.findOne(id);
+    await this.estRepo.remove(est);
     return { deleted: true };
   }
 }
+

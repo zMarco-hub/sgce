@@ -1,7 +1,12 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum } from 'class-validator';
+
+export enum RolNombre {
+  ADMIN = 'ADMIN',
+  DOCENTE = 'DOCENTE',
+  ESTUDIANTE = 'ESTUDIANTE',
+}
 
 export class CreateRolDto {
-  @IsString()
-  @IsNotEmpty({ message: 'El nombre del rol es obligatorio' })
-  nombre: string;
+  @IsEnum(RolNombre, { message: 'nombre debe ser: ADMIN, DOCENTE o ESTUDIANTE' })
+  nombre: RolNombre;
 }

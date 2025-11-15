@@ -4,50 +4,62 @@ import { Repository } from 'typeorm';
 import { Curso } from './entities/curso.entity';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
+import { Docente } from '../docente/entities/docente.entity';
 
 @Injectable()
 export class CursoService {
-  constructor(@InjectRepository(Curso) private repo: Repository<Curso>) {}
+  constructor(
+    @InjectRepository(Curso) private readonly cursoRepo: Repository<Curso>,
+    @InjectRepository(Docente) private readonly docRepo: Repository<Docente>,
+  ) {}
 
   async create(dto: CreateCursoDto) {
-    try {
-      const curso = this.repo.create(dto);
-      return await this.repo.save(curso);
-    } catch (e: any) {
-      if (e.code === '23505') {
-        // UNIQUE (nombre, gestion, docente_id) de tu SQL
-        throw new BadRequestException('Ya existe un curso con ese nombre/gestión/docente');
-      }
-      throw e;
-    }
+    const docente = await this.docRepo.findOne({ where: { id: dto.docenteId } });
+    if (!docente) throw new NotFoundException('Docente no encontrado');
+
+    const exists = await this.cursoRepo.findOne({
+      where: { nombre: dto.nombre.trim(), gestion: dto.gestion.trim(), docente: { id: docente.id } },
+      relations: { docente: true },
+    });
+    if (exists) throw new BadRequestException('Ya existe un curso con ese nombre, gestión y docente');
+
+    const curso = this.cursoRepo.create({
+      nombre: dto.nombre.trim(),
+      gestion: dto.gestion.trim(),
+      docente,
+    });
+    return this.cursoRepo.save(curso);
   }
 
   findAll() {
-    return this.repo.find({ order: { id: 'DESC' } });
+    return this.cursoRepo.find({ order: { id: 'DESC' } });
   }
 
   async findOne(id: number) {
-    const c = await this.repo.findOne({ where: { id } });
-    if (!c) throw new NotFoundException('Curso no encontrado');
-    return c;
+    const curso = await this.cursoRepo.findOne({ where: { id } });
+    if (!curso) throw new NotFoundException('Curso no encontrado');
+    return curso;
   }
 
   async update(id: number, dto: UpdateCursoDto) {
-    const c = await this.findOne(id);
-    Object.assign(c, dto);
-    try {
-      return await this.repo.save(c);
-    } catch (e: any) {
-      if (e.code === '23505') {
-        throw new BadRequestException('Conflicto de UNIQUE en nombre/gestión/docente');
-      }
-      throw e;
+    const curso = await this.findOne(id);
+
+    if (dto.docenteId) {
+      const docente = await this.docRepo.findOne({ where: { id: dto.docenteId } });
+      if (!docente) throw new NotFoundException('Docente no encontrado');
+      curso.docente = docente;
     }
+    if (dto.nombre !== undefined) curso.nombre = dto.nombre.trim();
+    if (dto.gestion !== undefined) curso.gestion = dto.gestion.trim();
+    if (dto.activo !== undefined) curso.activo = dto.activo;
+
+    return this.cursoRepo.save(curso);
   }
 
   async remove(id: number) {
-    const c = await this.findOne(id);
-    await this.repo.remove(c);
-    return { deleted: true };
+    const curso = await this.findOne(id);
+    await this.cursoRepo.remove(curso);
+    return { ok: true };
   }
 }
+
