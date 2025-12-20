@@ -12,14 +12,14 @@ import { InscripcionModule } from './inscripcion/inscripcion.module';
 import { EvaluacionModule } from './evaluacion/evaluacion.module';
 import { NotaModule } from './nota/nota.module';
 import { AuthModule } from './auth/auth.module';
-
-
+import * as path from 'path';
 
 @Module({
   imports: [
     // ✅ Cargar variables del archivo .env
     ConfigModule.forRoot({
       isGlobal: true, // Hace disponibles todas las variables
+      envFilePath: path.resolve(__dirname, '../.env'), // Ruta al archivo .env fuera de la carpeta backend
     }),
 
     // ✅ Configurar conexión con PostgreSQL
@@ -31,7 +31,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, 
+      synchronize: true,
     }),
 
     RolModule,
