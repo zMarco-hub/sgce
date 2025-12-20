@@ -1,3 +1,8 @@
+<!-- header Animation -->
+<div align= "center"> 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=240&text=zMarco's%20GitHub&animation=fadeIn&fontColor=2a2828&fontSize=50" />
+</div>
+
 # Sistema de Gestión de Cursos y Estudiantes
 
 <div align="center">
@@ -6,7 +11,7 @@
     <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="150">
   </p>
 
-  <img src="https://readme-typing-svg.herokuapp.com?color=%236FDA44&size=30&center=true&vCenter=true&width=672&height=55&lines=Hola+somos+el+grupo+3+del+Diplomado;Full-Stack+Developer;Software+Sistema+de+Gestion+de+Cursos+y+Estudiantes;" alt="Headline" />
+  <img src="https://readme-typing-svg.herokuapp.com?color=%236FDA44&size=30&center=true&vCenter=true&width=672&height=55&lines=Hola+somos+el+grupo+3+del+Diplomado;Full-Stack+Developer;Sistema+de+Gestion+de+Cursos+y+Estudiantes;" alt="Headline" />
 
 <br><br>
 
@@ -283,3 +288,8 @@ Mejores Prácticas Implementadas
 ✅ **Tailwind CSS**
 
 ✅ **Swagger**
+
+<!-- Footer Animation -->
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=9370DB&height=100&section=footer" width="100%"/>
+</div>
