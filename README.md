@@ -1,6 +1,6 @@
 <!-- header Animation -->
 <div align= "center"> 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=240&text=zMarco-hub%20GitHub&animation=fadeIn&fontColor=2a2828&fontSize=50" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=240&text=Grupo+3%20GitHub&animation=fadeIn&fontColor=2a2828&fontSize=50" />
 </div>
 
 # Sistema de Gestión de Cursos y Estudiantes
