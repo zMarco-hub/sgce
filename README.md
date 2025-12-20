@@ -2,15 +2,36 @@
 
 Este proyecto es un **Sistema de Gestión de Cursos y Estudiantes** implementado con un **backend** usando **NestJS**, **PostgreSQL** como base de datos, y **TypeORM** como ORM. El **frontend** está desarrollado con **Angular 21** y **TailwindCSS 4**. El sistema permite la gestión de cursos, estudiantes, inscripciones, y evaluaciones de manera eficiente.
 
-## Características
+# 🚀 Características del Proyecto
 
-- **Backend**:
-  - Desarrollado con **NestJS** (TypeScript).
-  - Persistencia de datos con **PostgreSQL** y **TypeORM**.
-  - Documentación de la API generada automáticamente con **Swagger**.
-- **Frontend**:
-  - Desarrollado con **Angular 21** (TypeScript).
-  - Estilo visual usando **TailwindCSS 4**.
+## Backend (NestJS)
+
+- ✅ **Arquitectura modular y escalable**
+- ✅ **API RESTful** con TypeScript
+- ✅ **Autenticación JWT** con roles
+- ✅ **Persistencia** con PostgreSQL y TypeORM
+- ✅ **Documentación automática** con Swagger
+- ✅ **Validación de datos** con `class-validator`
+- ✅ **Manejo de errores global** en toda la aplicación
+- ✅ **Seeds** para datos iniciales
+
+## Frontend (Angular 21)
+
+- ✅ **Aplicación SPA** con Angular
+- ✅ **Gestión de estado** con Signals
+- ✅ **Control Flow** con `@if` y `@for`
+- ✅ **Diseño responsive** con Tailwind CSS 4
+- ✅ **Tema oscuro** con acentos verdes
+- ✅ **Autenticación y autorización**
+- ✅ **CRUD completo** para todas las entidades
+
+## Base de Datos (PostgreSQL)
+
+- ✅ **Modelo relacional completo**
+- ✅ **Migraciones** con TypeORM
+- ✅ **Relaciones 1:1, 1:N y N:M**
+- ✅ **Índices optimizados** para mejorar el rendimiento
+- ✅ **Validación a nivel de base de datos** para integridad de datos
 
 ## Tecnologías
 
@@ -22,16 +43,16 @@ Este proyecto es un **Sistema de Gestión de Cursos y Estudiantes** implementado
 
 ### Frontend
 
-| ![Angular](https://raw.githubusercontent.com/tandpfun/skill-icons/master/icons/Angular-Dark.svg) | ![Tailwind](https://raw.githubusercontent.com/tandpfun/skill-icons/master/icons/TailwindCSS-Dark.svg) |
-| :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-|                                [Angular 21](https://angular.io/)                                 |                                [TailwindCSS](https://tailwindcss.com/)                                |
+| ![Angular](https://raw.githubusercontent.com/tandpfun/skill-icons/master/icons/Angular-Dark.svg) | ![Tailwind](https://cdn.jsdelivr.net/gh/tandpfun/skill-icons@main/icons/TypeScript.svg) |
+| :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
+|                                [Angular 21](https://angular.io/)                                 |                         [TailwindCSS](https://tailwindcss.com/)                         |
 
 ## Requisitos
 
 Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas en tu sistema:
 
-- **Node.js** (v14.x o superior) – [Instalar Node.js](https://nodejs.org/)
-- **npm** (v6.x o superior) o **yarn** – [Instalar npm](https://www.npmjs.com/get-npm)
+- **Node.js** (v22.x o superior) – [Instalar Node.js](https://nodejs.org/)
+- **npm** (v10.x o superior) – [Instalar npm](https://www.npmjs.com/get-npm)
 - **PostgreSQL** – [Instalar PostgreSQL](https://www.postgresql.org/download/)
 
 ## Estructura del Proyecto
@@ -46,14 +67,27 @@ El proyecto tiene la siguiente estructura de carpetas:
 
 ## Backend
 
-### 1. Instalación
+## 📦 Instalación
 
-1. Navega a la carpeta `backend/`:
+### 1. Clonar el Repositorio
 
-   ```bash
-   cd backend
-   npm install
-   ```
+````bash
+git clone https://github.com/zMarco-hub/sgce
+cd sgce
+
+Configuración del Backend
+
+2. Navega a la carpeta `backend/`:
+
+ # Navegar al directorio del backend
+cd backend
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+
 
 ### 2. Configuración
 
@@ -65,13 +99,15 @@ DATABASE_PORT=5432
 DATABASE_NAME=nombre_de_tu_base_de_datos
 DATABASE_USER=usuario
 DATABASE_PASSWORD=contraseña
-```
+````
 
 ### 3.Ejecución
 
 Inicia la aplicación en modo de desarrollo:
 
+```bash
 npm run start:dev
+```
 
 La API estará disponible en http://localhost:3000
 
@@ -79,7 +115,9 @@ La API estará disponible en http://localhost:3000
 
 La documentación de la API se genera automáticamente con Swagger. Para acceder a ella, abre tu navegador y ve a:
 
+```bash
 http://localhost:3000/api/docs
+```
 
 Allí podrás ver todos los endpoints disponibles y cómo interactuar con ellos.
 
@@ -89,16 +127,26 @@ Allí podrás ver todos los endpoints disponibles y cómo interactuar con ellos.
 
 Navega a la carpeta frontend/:
 
+```bash
 cd frontend
+```
 
 Instala las dependencias del proyecto:
 
+```bash
 npm install
+```
 
 ### 2. Ejecución
 
 Inicia la aplicación en modo de desarrollo:
 
+```bash
 npm run start
+```
 
-El frontend estará disponible en http://localhost:4200.
+El frontend estará disponible en
+
+```bash
+http://localhost:4200.
+```
