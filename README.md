@@ -59,11 +59,13 @@ El proyecto tiene la siguiente estructura de carpetas:
 
 Asegúrate de tener configuradas las variables de entorno para la conexión a la base de datos PostgreSQL. Crea un archivo .env en la carpeta backend/ y agrega las siguientes variables:
 
+```bash
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_NAME=nombre_de_tu_base_de_datos
 DATABASE_USER=usuario
 DATABASE_PASSWORD=contraseña
+```
 
 ### 3.Ejecución
 
