@@ -59,11 +59,13 @@ Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas en
 
 El proyecto tiene la siguiente estructura de carpetas:
 
+```bash
 ├── backend/ # Backend implementado con NestJS
 ├── frontend/ # Frontend implementado con Angular
 ├── .env # Variables de entorno para el Backend
 ├── README.md # Este archivo
 └── docker-compose.yml # Configuración para ejecutar el proyecto en contenedores Docker (opcional)
+```
 
 ## Backend
 
@@ -71,15 +73,17 @@ El proyecto tiene la siguiente estructura de carpetas:
 
 ### 1. Clonar el Repositorio
 
-````bash
+```bash
 git clone https://github.com/zMarco-hub/sgce
 cd sgce
+```
 
-Configuración del Backend
+### 2. Configuración del Backend
 
-2. Navega a la carpeta `backend/`:
+    Navega a la carpeta `backend/`:
 
- # Navegar al directorio del backend
+```bash
+ ## Navegar al directorio del backend
 cd backend
 
 # Instalar dependencias
@@ -88,6 +92,7 @@ npm install
 # Configurar variables de entorno
 cp .env.example .env
 
+```
 
 ### 2. Configuración
 
@@ -99,7 +104,7 @@ DATABASE_PORT=5432
 DATABASE_NAME=nombre_de_tu_base_de_datos
 DATABASE_USER=usuario
 DATABASE_PASSWORD=contraseña
-````
+```
 
 ### 3.Ejecución
 
@@ -109,19 +114,7 @@ Inicia la aplicación en modo de desarrollo:
 npm run start:dev
 ```
 
-La API estará disponible en http://localhost:3000
-
-### 4.Documentación de la API con Swagger
-
-La documentación de la API se genera automáticamente con Swagger. Para acceder a ella, abre tu navegador y ve a:
-
-```bash
-http://localhost:3000/api/docs
-```
-
-Allí podrás ver todos los endpoints disponibles y cómo interactuar con ellos.
-
-## Frontend
+### Frontend
 
 ### 1. Instalación
 
@@ -142,11 +135,48 @@ npm install
 Inicia la aplicación en modo de desarrollo:
 
 ```bash
-npm run start
+npm start
+# o
+ng serve
 ```
 
 El frontend estará disponible en
 
 ```bash
 http://localhost:4200.
+```
+
+# 🗄️ Configuración de la Base de Datos
+
+```bash
+-- Conectarse a PostgreSQL
+psql -U postgres
+
+-- Crear base de datos
+CREATE DATABASE sgce_db;
+```
+
+## 📚 Documentación API
+
+Una vez que el backend esté ejecutándose, la documentación Swagger estará disponible en:
+
+http://localhost:3000/api/docs
+
+## Endpoints Principales
+
+# Autenticación
+
+```bash
+POST   /api/auth/login          - Iniciar sesión
+POST   /api/auth/register       - Registrar usuario (opcional)
+```
+
+# Usuarios
+
+```bash
+GET /api/v1/usuario - Listar usuarios (ADMIN)
+GET /api/v1/usuario/:id - Obtener usuario por ID
+POST /api/v1/usuario - Crear usuario (ADMIN)
+PATCH /api/v1/usuario/:id - Actualizar usuario (ADMIN)
+DELETE /api/v1/usuario/:id - Eliminar usuario (ADMIN)
 ```
