@@ -6,7 +6,7 @@
     <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="150">
   </p>
 
-  <img src="https://readme-typing-svg.herokuapp.com?color=%236FDA44&size=30&center=true&vCenter=true&width=672&height=55&lines=Hi+there+I+am+Salah+Eddine+Ghannouch;Full-Stack+Developer;Software+Engineering;" alt="Headline" />
+  <img src="https://readme-typing-svg.herokuapp.com?color=%236FDA44&size=30&center=true&vCenter=true&width=672&height=55&lines=Hola+somos+el+grupo+3+del+Diplomado;Full-Stack+Developer;Software+Sistema+de+Gestion+de+Cursos+y+Estudiantes;" alt="Headline" />
 
 <br><br>
 
