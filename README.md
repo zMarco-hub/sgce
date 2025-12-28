@@ -329,6 +329,18 @@ Mejores Prácticas Implementadas
 
 </div>
 
+# Alain Boris Condori Flores
+
+# Leonarde Tellez Alcaba
+
+# Jhon Boris Rivera Caceres
+
+# Luis Ventura Sánchez
+
+# Omar Aramayo
+
+# Marcos Luis Herrera Beltran
+
 <!-- Footer Animation -->
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=9370DB&height=100&section=footer" width="100%"/>
