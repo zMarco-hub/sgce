@@ -329,17 +329,17 @@ Mejores Prácticas Implementadas
 
 </div>
 
-# Alain Boris Condori Flores
+### Alain Boris Condori Flores
 
-# Leonarde Tellez Alcaba
+### Leonarde Tellez Alcaba
 
-# Jhon Boris Rivera Caceres
+### Jhon Boris Rivera Caceres
 
-# Luis Ventura Sánchez
+### Luis Ventura Sánchez
 
-# Omar Aramayo
+### Omar Aramayo
 
-# Marcos Luis Herrera Beltran
+### Marcos Luis Herrera Beltran
 
 <!-- Footer Animation -->
 <div align="center">
